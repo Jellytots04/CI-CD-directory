@@ -28,7 +28,6 @@ jobs:
 
       - name: Build static site
         run: |
-          cd ca2
           npm run build
 
       - name: Deploy to GitHub Pages
@@ -37,4 +36,4 @@ jobs:
           external_repository: lean-ni-bhreasail/ca2
           publish_dir: ./ca2
           publish_branch: main
-          github_token: ${{ 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 }}
+          github_token: ${{ secrets.CA_JEST }}
