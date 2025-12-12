@@ -35,5 +35,5 @@ jobs:
         with:
           external_repository: jellytots04/CI-CD-directory
           publish_dir: ./dist
-          publish_branch: main
+          publish_branch: gh-pages
           github_token: ${{ secrets.CA_JEST }}
