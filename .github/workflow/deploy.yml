@@ -20,23 +20,19 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd ca2
           npm install
 
       - name: Run Jest tests
         run: |
-          cd ca2
           npm test -- --ci
 
       - name: Build static site
         run: |
-          cd ca2
           npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          external_repository: jellytots04/ca2
-          publish_dir: ./ca2/dist
+          publish_dir: ./dist
           publish_branch: main
           github_token: ${{ secrets.CA_JEST }}
