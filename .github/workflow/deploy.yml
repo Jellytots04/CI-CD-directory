@@ -1,0 +1,40 @@
+name: Test and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Run Jest tests
+        run: |
+          npm test -- --ci
+
+      - name: Build static site
+        run: |
+          cd ca2
+          npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          external_repository: lean-ni-bhreasail/ca2
+          publish_dir: ./ca2
+          publish_branch: main
+          github_token: ${{ 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 }}
