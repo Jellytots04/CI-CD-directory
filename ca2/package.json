@@ -1,0 +1,31 @@
+{
+  "name": "ca2",
+  "version": "1.0.0",
+  "description": "Version 1 CA2",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JVKTUDublin/rwat-Jellytots04.git"
+  },
+  "keywords": [
+    "github"
+  ],
+  "author": "Jello Sarmiento",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JVKTUDublin/rwat-Jellytots04/issues"
+  },
+  "homepage": "https://github.com/JVKTUDublin/rwat-Jellytots04#readme",
+  "dependencies": {
+    "firebase": "^12.6.0",
+    "vite": "^6.4.1"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0"
+  }
+}
