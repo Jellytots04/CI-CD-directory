@@ -93,6 +93,25 @@ class boardSize extends HTMLElement {
         this.board = container;
         this.avgScore = avgScore;
 
+                const sheet = new CSSStyleSheet();
+        sheet.replaceSync(`
+        .win-btn {
+            padding: 0.8rem 1.8rem;
+            margin: 0.5rem;
+            border-radius: 999px;
+            border: none;
+            background-color: #2563eb;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .win-btn:hover {
+            background-color: #1d4ed8;
+        }
+        `);
+        this.shadowRoot.adoptedStyleSheets = [sheet];
+
         this.startGame();
     }
 
