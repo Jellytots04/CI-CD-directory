@@ -53,9 +53,8 @@ class boardSize extends HTMLElement {
         container.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
         container.style.gap = "5px";
 
-        container.innerHTML = ShapeCard.getUniqueRandomCardsAsHTML((rows * cols)/2, true);
-
         this.shadowRoot.appendChild(container);
+        this.board = container;
 
         const winOverlay = document.createElement("div");
         winOverlay.style.position = "fixed";
@@ -94,27 +93,30 @@ class boardSize extends HTMLElement {
         this.board = container;
         this.avgScore = avgScore;
 
+        this.startGame();
+    }
+
+    startGame() {
+        const pairs = (this.rows * this.cols) / 2; 
+
+        this.board.innerHTML = ShapeCard.getUniqueRandomCardsAsHTML(pairs, true);
+
+        this.overlay.style.display = "none";
+        this.avgScore.style.display = "none";
+        
         // Will be used to store the cards that are currently up
         let cardsUp = [];
         let clicks = 0;
         let flippedCards = 0;
 
-        container.querySelectorAll('shape-card').forEach(sc => sc.addEventListener('click', e => {
-            // Will do a check to see if the card is already up, if true then return
+        this.board.querySelectorAll('shape-card').forEach(sc => sc.addEventListener('click', e => {
             if (e.target.isFaceUp()) {
-                console.log("Card is already up");
                 return;
             }
 
             clicks++;
-
             e.target.flip();
-
-            // console.log("Shape card is face up:", e.target.isFaceUp());
-
             cardsUp.push(e.target);
-
-            // console.log(cardsUp)
 
             if (cardsUp.length === 2) {
                 const [c1, c2] = cardsUp;
@@ -125,8 +127,7 @@ class boardSize extends HTMLElement {
                 if (typeMatch && colorMatch) {
                     flippedCards += 2;
                     cardsUp = [];
-                }
-                else {
+                } else {
                     setTimeout(() => {
                         c1.flip();
                         c2.flip();
@@ -135,12 +136,11 @@ class boardSize extends HTMLElement {
                 }
             }
 
-            if (flippedCards === (rows * cols)) {
+            if (flippedCards === (this.rows * this.cols)) {
                 setTimeout(async () => {
                     await saveClickScore(clicks);
                     this.gameWin(clicks);
                 }, 1000);
-                // console.log("User has won, amount of clicks taken: ", clicks);
             }
 
         }));
@@ -162,64 +162,7 @@ class boardSize extends HTMLElement {
     }
 
     replay() {
-        console.log("Rows and Cols ",this.rows, this.cols);
-
-        const newCards = ShapeCard.getUniqueRandomCardsAsHTML((this.rows * this.cols)/2, true);
-
-        this.overlay.style.display = "none";
-
-        let clicks = 0;
-        let flippedCards = 0;
-        let cardsUp = [];
-
-        this.board.innerHTML = newCards;
-
-        this.board.querySelectorAll('shape-card').forEach(sc => sc.addEventListener('click', e => {
-            // Will do a check to see if the card is already up, if true then return
-            if (e.target.isFaceUp()) {
-                console.log("Card is already up");
-                return;
-            }
-
-            clicks++;
-
-            e.target.flip();
-
-            // console.log("Shape card is face up:", e.target.isFaceUp());
-
-            cardsUp.push(e.target);
-
-            // console.log(cardsUp)
-
-            if (cardsUp.length === 2) {
-                const [c1, c2] = cardsUp;
-
-                const typeMatch = c1.getAttribute('type') === c2.getAttribute('type');
-                const colorMatch = c1.getAttribute('colour') === c2.getAttribute('colour');
-
-                if (typeMatch && colorMatch) {
-                    flippedCards += 2;
-                    cardsUp = [];
-                }
-                else {
-                    setTimeout(() => {
-                        c1.flip();
-                        c2.flip();
-                        cardsUp = [];
-                    }, 750);
-                }
-            }
-
-            if (flippedCards === (this.rows * this.cols)) {
-                setTimeout( async () => {
-                    await saveClickScore(clicks);
-                    this.gameWin(clicks);
-                }, 1000);
-                // console.log("User has won, amount of clicks taken: ", clicks);
-            }
-
-        }));
-
+        this.startGame();
         console.log("Replay button debug print");
     }
 }
