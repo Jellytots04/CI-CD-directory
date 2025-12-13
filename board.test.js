@@ -35,12 +35,11 @@ class TestBoardSize extends HTMLElement {
 customElements.define("test-board-size", TestBoardSize);
 
 test("test-board-size has 12 cards for 3x4", () => {
-    const wrapper = document.createElement("div");
-    wrapper.innerHTML = `<test-board-size size="3x4"></test-board-size>`;
-    document.body.appendChild(wrapper);
 
-    const board = document.querySelector("test-board-size");
+    const board = document.createElement("test-board-size");
+    board.setAttribute("size", "3x4");
+    document.body.appendChild(board); 
+
     const cards = board.shadowRoot.querySelectorAll("shape-card");
-
     expect(cards.length).toBe(12);
 });
