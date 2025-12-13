@@ -1,5 +1,5 @@
 
-import { ShapeCard } from "./shapecard";
+import { ShapeCard } from "./shapecard.js";
 
 test('Ensure the cards can face up and face down.', () => {
     document.body.innerHTML = `
