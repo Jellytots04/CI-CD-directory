@@ -40,6 +40,8 @@ test("test-board-size has 12 cards for 3x4", () => {
     board.setAttribute("size", "3x4");
     document.body.appendChild(board); 
 
-    const cards = board.shadowRoot.querySelectorAll(".card");
+    console.log("board root", board.shadowRoot.innerHTML);
+
+    const cards = board.shadowRoot.querySelectorAll("shape-card");
     expect(cards.length).toBe(12);
 });
