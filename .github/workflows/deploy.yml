@@ -35,4 +35,4 @@ jobs:
         with:
           publish_dir: ./dist
           publish_branch: main
-          github_token: ${{ secrets.CA_JEST }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
