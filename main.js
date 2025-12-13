@@ -72,11 +72,13 @@ class boardSize extends HTMLElement {
         winOverlay.appendChild(UserScore);
 
         const replay = document.createElement("button");
+        replay.className = "win-btn";
         replay.textContent = "Play Again!";
         replay.addEventListener("click", () => this.replay())
         winOverlay.appendChild(replay);
 
         const avgButton = document.createElement("button");
+        avgButton.className = "win-btn";
         avgButton.textContent = "Show Average Clicks";
         avgButton.addEventListener("click", () => this.showAverage())
         winOverlay.appendChild(avgButton);
@@ -93,24 +95,20 @@ class boardSize extends HTMLElement {
         this.board = container;
         this.avgScore = avgScore;
 
-                const sheet = new CSSStyleSheet();
-        sheet.replaceSync(`
-        .win-btn {
-            padding: 0.8rem 1.8rem;
-            margin: 0.5rem;
-            border-radius: 999px;
-            border: none;
-            background-color: #2563eb;
-            color: #ffffff;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .win-btn:hover {
-            background-color: #1d4ed8;
-        }
-        `);
-        this.shadowRoot.adoptedStyleSheets = [sheet];
+        const style = document.createElement("style");
+        style.textContent = `
+            .win-btn {
+                padding: 0.8rem 1.8rem;
+                margin: 0.5rem;
+                border: none;
+                background-color: blue;
+                color: #ffffff;
+                font-size: 1rem;
+                font-weight: 600;
+                cursor: pointer;
+            }`;
+        this.shadowRoot.appendChild(style);
+
 
         this.startGame();
     }
